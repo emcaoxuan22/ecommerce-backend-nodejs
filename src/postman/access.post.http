@@ -1,0 +1,42 @@
+@urldev=http://localhost:3066/v1/api
+## signup
+POST  {{urldev}}/shop/signup/
+Content-Type: application/json
+x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe8e9bc5e0e629f7a6ac82bccb06c103282b7a035119557f5ec9a4cb3781
+
+{
+    "name": "longcv",
+    "email": "longcv@mcivietnam.com",
+    "password": "long123456"
+}
+
+### loginn
+POST  {{urldev}}/shop/login/
+Content-Type: application/json
+x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe8e9bc5e0e629f7a6ac82bccb06c103282b7a035119557f5ec9a4cb3781
+
+
+{
+    "email": "longcv@mcivietnam.com",
+    "password": "long123456"
+}
+
+### loginn
+POST  {{urldev}}/shop/login/
+Content-Type: application/json
+x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe8e9bc5e0e629f7a6ac82bccb06c103282b7a035119557f5ec9a4cb3781
+
+
+{
+    "email": "longcv@mcivietnam.com",
+    "password": "long123456"
+}
+
+### sauthentication
+POST  {{urldev}}/logout
+Content-Type: application/json
+x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe8e9bc5e0e629f7a6ac82bccb06c103282b7a035119557f5ec9a4cb3781
+client-id:651431c394f043cef64477cf
+authorization:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTE0MzFjMzk0ZjA0M2NlZjY0NDc3Y2YiLCJlbWFpbCI6ImxvbmdjdkBtY2l2aWV0bmFtLmNvbSIsImlhdCI6MTY5NTgzMTU2MSwiZXhwIjoxNjk2MDA0MzYxfQ.DIrcqOJVv3HbNsY-C-fDX19DPKS2Lf3tHEGNbUI8mA4Ep46v93y9SbfBVNOQnTp46-tpLPsGgbGMuuBJ0mRfGjVMMMY1kM9GjAZP-SY2bVn_WUlnaem-d0V0_x1UPagq-VvX9nJeDTMV8n2GTxrQnfG8m-HVM0uadoMDvO2Tw5ZotDU18diZEFmp3Zi-QceW5ozjrZY8eH9dAvJ10PYd6hrFctIcATtDSnNn1NDhCGl7mPBBt5c9hSdqUROp6Dex3fQHTjE2IBiGuFcb7TVFu_7l2Lq2drea3BLQoAaJ-qCDAVT8CfGL9tfD60JwiRMN5wBeuhHtXsFtBTc7tnJPmznpW7VgI_RGVKzpsOnJ1xVDyVdsitTuj-LzPn_G4LL27AwhbcXUt7gpC8nkewKGYLy-U5brWtpMFewl8_y_tXEfNWhsaz2mppp97cXr1TcuO-m7ZLzn2-V92tCZU16-6qjI_ZD1BOmu_XPbNVKFzHJjvdSxnLwganpk51GiIH98ZDj5BMqkeT-UkLePvBqzUAAcY00VvF4KoYObmQBOLsGvwQ6GehUQ2O4bY3-sN7Fe689vUBp5qTzrxLek7NxOvI8e-7TscPknmALUDwiBt7hyeOed3Yk3_C-VSLhCkfXbOV9oJJuueMnxCK7uOluEpG8ggdINFn16RzrletevG8Y
+
+
