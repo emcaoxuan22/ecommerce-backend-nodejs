@@ -5,6 +5,14 @@ const { asyncHandle } = require("../helpers/asyncHander");
 const AccessService = require("../services/access.service");
 
 class AccessController {
+  handleRefeshToken = asyncHandle(async (req, res, next) => {
+    const { refreshToken } = req.body;
+
+    res
+      .status(200)
+      .json(await AccessService.handleRefreshToken({ refreshToken }));
+  });
+
   login = asyncHandle(async (req, res, next) => {
     const { email, password } = req.body;
     res.status(200).json(await AccessService.login({ email, password }));

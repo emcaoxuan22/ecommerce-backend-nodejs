@@ -14,7 +14,6 @@ const createTokenPair = async (payload, publicKey, privateKey) => {
       algorithm: "RS256",
       expiresIn: "2 days",
     });
-    console.log(accessToken);
     const refreshToken = await JWT.sign(payload, privateKey, {
       algorithm: "RS256",
       expiresIn: "7 days",
@@ -58,7 +57,6 @@ const authentication = asyncHandle(async (req, res, next) => {
     throw createHttpError.BadRequest("invalid request");
   }
   const decodeUser = JWT.verify(accessToken, keyStore.publicKey);
-  console.log(decodeUser);
   if (userId !== decodeUser.userId) {
     throw createHttpError.BadRequest("invalid user");
   }
@@ -66,7 +64,12 @@ const authentication = asyncHandle(async (req, res, next) => {
   return next();
 });
 
+const verifyJWT = async (token, keySecret) => {
+  return await JWT.verify(token, keySecret);
+};
+
 module.exports = {
   createTokenPair,
   authentication,
+  verifyJWT,
 };
