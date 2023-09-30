@@ -8,7 +8,7 @@ const productSchema = new Schema(
   {
     product_name: { type: String, require: true },
     product_thumb: { type: String, require: true },
-    produc_descreption: String,
+    product_description: String,
     product_price: { type: Number, require: true },
     product_quantity: { type: Number, require: true },
     product_type: {
@@ -25,32 +25,32 @@ const productSchema = new Schema(
   }
 );
 
-// define the product type=Clothing
-const clothingSchema =
-  ({
-    brand: { type: String, require: true },
-    size: String,
-    material: String,
-  },
-  {
-    collection: "clothes",
-    timestamps: true,
-  });
+// // define the product type=Clothing
+const clothingSchema =new Schema({
+  brand: { type: String, require: true },
+  size: String,
+  material: String,
+},
+{
+  collection: "clothes",
+  timestamps: true,
+});
+  
 
-// define the product type=eletronics
-const electronicSchema =
-  ({
-    manufacturer: { type: String, require: true },
-    model: String,
-    material: String,
-  },
-  {
-    collection: "clothes",
-    timestamps: true,
-  });
+// // define the product type=eletronics
+const electronicSchema =new Schema({
+  manufacturer: { type: String, require: true },
+  model: String,
+  material: String,
+},
+{
+  collection: "electronics",
+  timestamps: true,
+});
+  
 
 module.exports = {
   product: model(DOCUMENT_NAME, productSchema),
-  electronic: model("electronics", electronicSchema),
-  clothing: model("clothings", clothingSchema),
+  electronic: model("electronic", electronicSchema),
+  clothing: model("clothing", clothingSchema),
 };

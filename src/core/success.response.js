@@ -16,7 +16,7 @@ class SuccessResponse {
     statusCode = StatusCode.OK,
     metaData = {},
   }) {
-    this.message = !message ? ReasonStatusCodes.OK : message;
+    this.message = !message ? ReasonStatusCode : message;
     this.status = statusCode;
     this.metaData = metaData;
   }
