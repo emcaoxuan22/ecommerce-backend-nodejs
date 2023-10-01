@@ -2,7 +2,7 @@
 ## signup
 POST  {{urldev}}/shop/signup/
 Content-Type: application/json
-x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe8e9bc5e0e629f7a6ac82bccb06c103282b7a035119557f5ec9a4cb3781
+x-api-key:3ef7ebfa0f29bfae6c17054076783edba1c63abf9e6fe3d09a88ad1347d0b155254cc573c1e47ef5df1008334f0f9b91ca8798328ab60905942956197d240273
 
 {
     "name": "longcv",
@@ -13,11 +13,11 @@ x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe
 ### loginn
 POST  {{urldev}}/shop/login/
 Content-Type: application/json
-x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe8e9bc5e0e629f7a6ac82bccb06c103282b7a035119557f5ec9a4cb3781
+x-api-key:3ef7ebfa0f29bfae6c17054076783edba1c63abf9e6fe3d09a88ad1347d0b155254cc573c1e47ef5df1008334f0f9b91ca8798328ab60905942956197d240273
 
 
 {
-    "email": "longcv1@mcivietnam.com",
+    "email": "longcv@mcivietnam.com",
     "password": "long123456"
 }
 
@@ -34,7 +34,7 @@ authorization:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTE1NGUwMjNlO
 POST  {{urldev}}/shop/handleRefreshToken/
 Content-Type: application/json
 x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe8e9bc5e0e629f7a6ac82bccb06c103282b7a035119557f5ec9a4cb3781
-client-id:65154e023e8f8de592083086
+client-id:6518eee9315fe44f76558edc
 authorization:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTE1NGUwMjNlOGY4ZGU1OTIwODMwODYiLCJlbWFpbCI6ImxvbmdjdkBtY2l2aWV0bmFtLmNvbSIsImlhdCI6MTY5NTg5NTA0MiwiZXhwIjoxNjk2NDk5ODQyfQ.s0VkyxwhYsfQXXCsH_1d_kkHwh7u9DZGBeHH-683C6WcdczItLnbwWnxoGtaab2aVckJeGi4xueIeP9JB7CZTBM3X8z-p3CUFgvsH6w2R8dZAGbaSTAlHwvHZjcjtgWGqof-mDidCMv1zd7cFPXYDo_imdtJJgbmhm0l4LDg_jKUTqj-qeKtXCzCVNrmfccUUQDz250MKBuGo_3kUJ0cCHK6m1CAbXtiOwXT3Ccx1o8oPBU763uMW6hxvCgyGI_xRgqZEoX2p0sn4yut1vPsrUqfBMKGemllBRqI_diSBm8usjrrkz23w4_ECn4K-QXqMIO266RooNXOZAHbZo7lkV5jbAfuFeB5nhgX9QG9KmTu448VIInxiebfK4urWscuLm0a7WgvFM1qCe0NEUCR0HxJtwpgW3h0hAB0J7oeLIjyOmZxWbudmKEF6rpcTQS4_36jLMr6ijn0oSss361ns9PyInGJvKp2GP8DqaGNXVfNJfrpYbbk4xI0tW3hwfAEEjNp7ZQlNiBS5PGEQ574ZEWLlFf6Bs7s67WWfKj2TtZf_ECB0bTb9WZq5qJ1HYtfDh7dssoMlO-UH3CC48c6EIhihuJ_VcBJWDE6PQ8l1R_LQ7gE2ILiJBsTDUk4nlt7-HK5gyrhC2xHRJne6PoRnk-PMoGnfQXijBeRwwSTTIc
 
 {
@@ -43,12 +43,23 @@ authorization:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTE1NGUwMjNlO
 
 ###
 
-POST  {{urldev}}/v1/api/product/create-product
+POST  {{urldev}}/product/create-product
 Content-Type: application/json
-x-api-key:4dafabbe1300a262a6160b30e9a05c80187e786fec0a70c4f49b6901faf97fa83b2fbe8e9bc5e0e629f7a6ac82bccb06c103282b7a035119557f5ec9a4cb3781
-client-id:65154e023e8f8de592083086
-authorization:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTE1NGUwMjNlOGY4ZGU1OTIwODMwODYiLCJlbWFpbCI6ImxvbmdjdkBtY2l2aWV0bmFtLmNvbSIsImlhdCI6MTY5NTg5NTA0MiwiZXhwIjoxNjk2NDk5ODQyfQ.s0VkyxwhYsfQXXCsH_1d_kkHwh7u9DZGBeHH-683C6WcdczItLnbwWnxoGtaab2aVckJeGi4xueIeP9JB7CZTBM3X8z-p3CUFgvsH6w2R8dZAGbaSTAlHwvHZjcjtgWGqof-mDidCMv1zd7cFPXYDo_imdtJJgbmhm0l4LDg_jKUTqj-qeKtXCzCVNrmfccUUQDz250MKBuGo_3kUJ0cCHK6m1CAbXtiOwXT3Ccx1o8oPBU763uMW6hxvCgyGI_xRgqZEoX2p0sn4yut1vPsrUqfBMKGemllBRqI_diSBm8usjrrkz23w4_ECn4K-QXqMIO266RooNXOZAHbZo7lkV5jbAfuFeB5nhgX9QG9KmTu448VIInxiebfK4urWscuLm0a7WgvFM1qCe0NEUCR0HxJtwpgW3h0hAB0J7oeLIjyOmZxWbudmKEF6rpcTQS4_36jLMr6ijn0oSss361ns9PyInGJvKp2GP8DqaGNXVfNJfrpYbbk4xI0tW3hwfAEEjNp7ZQlNiBS5PGEQ574ZEWLlFf6Bs7s67WWfKj2TtZf_ECB0bTb9WZq5qJ1HYtfDh7dssoMlO-UH3CC48c6EIhihuJ_VcBJWDE6PQ8l1R_LQ7gE2ILiJBsTDUk4nlt7-HK5gyrhC2xHRJne6PoRnk-PMoGnfQXijBeRwwSTTIc
+x-api-key:3ef7ebfa0f29bfae6c17054076783edba1c63abf9e6fe3d09a88ad1347d0b155254cc573c1e47ef5df1008334f0f9b91ca8798328ab60905942956197d240273
+client-id:6518eee9315fe44f76558edc
+authorization:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTE4ZWVlOTMxNWZlNDRmNzY1NThlZGMiLCJlbWFpbCI6ImxvbmdjdkBtY2l2aWV0bmFtLmNvbSIsImlhdCI6MTY5NjEzMjg0MiwiZXhwIjoxNjk2MzA1NjQyfQ.kmctCd0KKHwCflr5UkTpoz8jn6JQVoQaeO6vEeEHruhZGxWrUj5JiHhSYrxmYhsvGAhKTBpUzu9_4qm5VLJ8zxhL-lMJyhlQt7-NH1y7n2Kf8EdWMoPWEXp7cacGTV2qT9GcRTA8v1uqkrqB4yixTnU4kelHvZ7KIeAKkELJHq4NehzNeUpuo-d8W-v6hGeyfeoF5jaY0F9d66wCbYm3H4tvHeBY4MQOWwk98VyHIV2zzi1etObZpsvghv7jYvSePJLHE8VJ9tRzBYIp9hFB-qvEq4k1z5fpKiTffblxqygje9BgxIVAJO8oEg1M1V2X-LsTOtLX8x7G1drxgTZ9MhgaV4DeLtsV9K_brdbslEIqmLFo9dIdKWmcMM0DFFQpoK4gJkgcqITW3lbByOAEWhuGqcS6tsTUsc0eCSOIdakX3-ejar8TakHs5nW-9KC5pO8zQMdkXNForNVvcegZe8sCXciZ7BY6IdV7gvbwPz09t91Ka2oHATBt1e6FfgZxwza8kRCpaaqKJJ0JWi2_DBzZ8l2LRUG-Nal9259zs9I_G32miwjgFtIpvC8Xh1w0jzDuSPt9dhYAlwYfLUYmC7Jwpr24PtQrYUqybHB2Z_gUm75nTWZvbq-JYa72VO9-HcegmkMx_3hKf6eF_-C5MsQHNQeHS8IEE8OJaxaURdM
 
 {
-    
+    "product_name": "New Jeans",
+    "product_thumb":  "product Thumb",
+    "product_description": "Hight=quality jeans",
+    "product_price": "50",
+    "product_quantity": "5",
+    "product_type": "Clothing",
+    "product_shop": "6518eee9315fe44f76558edc",
+    "product_attributes": {
+        "brand": "levi 5",
+        "size": "L",
+        "material": "denim"
+    }
 }

@@ -9,7 +9,7 @@ class ProductController {
     createProduct = asyncHandle(async(req, res, next) => {
         new SuccessResponse({
             massage: 'Create new Product success!',
-            metadata: await ProductService.createProduct(req.body.product_type, req.body)
+            metaData: await ProductService.createProduct(req.body.product_type, req.body)
         }).send(res)
     })
 }

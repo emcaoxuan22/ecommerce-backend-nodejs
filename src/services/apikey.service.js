@@ -1,7 +1,9 @@
 "use strict";
+const createHttpError = require("http-errors");
 const apikeyModel = require("../models/apikey.model");
+const crypto = require("crypto");
+
 const findById = async (key) => {
-  const objKeys = apikeyModel.create({ key, status: true }).lean();
 
   const objKey = apikeyModel.findOne({ key, status: true }).lean();
   return objKey;
