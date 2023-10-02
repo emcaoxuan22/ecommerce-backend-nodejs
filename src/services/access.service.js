@@ -15,60 +15,36 @@ const rolesShop = {
   ADMIN: "ADMIN",
 };
 class AccessService {
-  static handleRefreshToken = async ({ refreshToken }) => {
-    // check RT is in refreshTokenUsed?
-    const foundToken = await KeyTokenService.findByRefeshTokenUsed(
-      refreshToken
-    );
-    // neu co
-    if (foundToken) {
-      //decode xem may la thang nao
-      const { userId, email } = await verifyJWT(
-        refreshToken,
-        foundToken.privateKey
-      );
-      //xoa tat ca token trong keyStore
+  static handleRefreshToken = async ({ keyStore, user,refreshToken }) => {
+    const {userId, email} = user
+
+    if(keyStore.refreshTokenUsed.includes(refreshToken)) {
       await KeyTokenService.deleteByUserId(userId);
       throw createHttpError.Forbidden(
-        "something is happen wrong!!, pleass relogin"
+        "something is happen wrong!!, pleas relogin"
       );
     }
-    const holderToken = await KeyTokenService.findByRefeshToken(refreshToken);
-    if (!holderToken) {
-      throw createHttpError.Forbidden("Token not match");
-    }
-    // verify token and decode
-    const { userId, email } = await verifyJWT(
-      refreshToken,
-      holderToken.privateKey
-    );
+    if(keyStore.refreshToken !== refreshToken) throw createHttpError.Unauthorized('Shop not register')
+
     //check userId or email
     const foundShop = await findByEmail({ email });
-    console.log(foundShop);
-    if (!foundShop) throw createHttpError.NotFound("email is not register");
-
+    if(!foundShop) throw createHttpError.NotFound("email is not register");
     //create 1 cap token moi
     const tokens = await createTokenPair(
       {
         userId,
         email,
       },
-      holderToken.publicKey,
-      holderToken.privateKey
+      keyStore.publicKey,
+      keyStore.privateKey
     );
-    console.log("daylahoder", holderToken);
-    //update token (ham này hiện tại không dùng được)
-    // await holderToken.update({
-    //   $set: { refreshToken: tokens.refreshToken },
-    //   $addToSet: {
-    //     refreshTokenUsed: refreshToken, //da duoc su dung
-    //   },
-    // });
-    holderToken.refreshToken = tokens.refreshToken;
-    holderToken.refreshTokenUsed.push(refreshToken);
-    await holderToken.save();
+    keyStore.refreshToken = tokens.refreshToken
+    keyStore.refreshTokenUsed.push(refreshToken)
+    
+    await keyStore.save()
+    
     return {
-      user: { userId, email },
+      user,
       tokens,
     };
   };

@@ -10,7 +10,11 @@ class AccessController {
 
     res
       .status(200)
-      .json(await AccessService.handleRefreshToken({ refreshToken }));
+      .json(await AccessService.handleRefreshToken({ 
+        refreshToken:req.refreshToken,
+        user: req.user,
+        keyStore: req.keyStore
+       }));
   });
 
   login = asyncHandle(async (req, res, next) => {
