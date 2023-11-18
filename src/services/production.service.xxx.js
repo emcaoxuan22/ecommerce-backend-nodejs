@@ -12,6 +12,7 @@ const {
   updateProductById,
 } = require("../models/repositories/product.repo");
 const { removeUndefineObject, updateNestedObjectParser } = require("../utils");
+const { insertInventory } = require("../models/repositories/inventory.repo");
 
 //define Fator classs to create product
 
@@ -105,7 +106,15 @@ class Product {
 
   //create new product
   async createProduct(productId) {
-    return await product.create({ ...this, _id: productId });
+    const newProduct = await product.create({ ...this, _id: productId });
+    if (newProduct) {
+      await insertInventory({
+        productId: newProduct._id,
+        shopId: this.product_shop,
+        stock: this.product_quantity,
+      });
+    }
+    return newProduct;
   }
   //update Product
   async updateProduct(productId, bodyUpdate) {
@@ -120,6 +129,8 @@ class Product {
 //define sub-class for different product types clothing
 class Clothing extends Product {
   async createProduct() {
+    console.log("vo day");
+    console.log(this);
     const newClothing = await clothing.create({
       ...this.product_attributes,
       product_shop: this.product_shop,

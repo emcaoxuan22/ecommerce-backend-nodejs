@@ -54,14 +54,15 @@ const authentication = asyncHandle(async (req, res, next) => {
     throw createHttpError[404]("not found keyStore");
   }
   // check token
-  if(req.headers[HEADER.REFRESHTOKEN]){
-    const refreshtoken = req.headers[HEADER.REFRESHTOKEN]
-    const decodeUser = JWT.verify(refreshtoken, keyStore.publicKey)
-    if(userId !== decodeUser.userId) throw createHttpError.Unauthorized('Invalid user')
-    req.keyStore = keyStore
-    req.refreshToken = refreshtoken
-    req.user = decodeUser
-    return next()
+  if (req.headers[HEADER.REFRESHTOKEN]) {
+    const refreshtoken = req.headers[HEADER.REFRESHTOKEN];
+    const decodeUser = JWT.verify(refreshtoken, keyStore.publicKey);
+    if (userId !== decodeUser.userId)
+      throw createHttpError.Unauthorized("Invalid user");
+    req.keyStore = keyStore;
+    req.refreshToken = refreshtoken;
+    req.user = decodeUser;
+    return next();
   }
   const accessToken = req.headers[HEADER.AUTHORIZATION];
   if (!accessToken) {
@@ -72,7 +73,7 @@ const authentication = asyncHandle(async (req, res, next) => {
     throw createHttpError.BadRequest("invalid user");
   }
   req.keyStore = keyStore;
-  req.user = decodeUser
+  req.user = decodeUser;
   return next();
 });
 
