@@ -32,6 +32,7 @@ class ProductFactory {
 
   //update product
   static async updateProduct(type, ProductId, payload) {
+    console.log(payload)
     const productClass = ProductFactory.productRegistry[type];
     if (!productClass)
       throw createHttpError.BadRequest(`Invalid Product Types ${type}`);
@@ -129,8 +130,6 @@ class Product {
 //define sub-class for different product types clothing
 class Clothing extends Product {
   async createProduct() {
-    console.log("vo day");
-    console.log(this);
     const newClothing = await clothing.create({
       ...this.product_attributes,
       product_shop: this.product_shop,

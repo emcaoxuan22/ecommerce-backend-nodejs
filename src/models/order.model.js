@@ -27,7 +27,7 @@ const orderSchema = new Schema(
     order_trackingNumber: { type: String, default: "#0000118052022" },
     order_status: {
       type: String,
-      enum: ["pending", "confirmed", "shipped", "cancelled"],
+      enum: ["pending", "confirmed", "shipped", "cancelled","delivered"],
       default: "pending",
     },
   },

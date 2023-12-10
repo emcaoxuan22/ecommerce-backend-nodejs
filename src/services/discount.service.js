@@ -103,6 +103,7 @@ class DiscountService {
         discount_shopId: shopId,
       })
       .lean();
+    
     if (!foundDiscount || !foundDiscount.discount_is_active) {
       throw createHttpError.NotFound("discount not exists!");
     }
@@ -137,6 +138,7 @@ class DiscountService {
     return product;
   }
   static async getAllDiscountCodesByShop({ limit, page, shopId }) {
+    console.log(shopId)
     const discounts = findAllDiscountCodeUnselect({
       limit: +limit,
       page: +page,
@@ -147,6 +149,7 @@ class DiscountService {
       unSelect: ["__v", "discount_shopId"],
       model: discount,
     });
+
     return discounts;
   }
 
@@ -171,6 +174,7 @@ class DiscountService {
   */
 
   static async getDiscountAmount({ codeId, userId, shopId, products }) {
+    
     const foundDiscount = await checkDiscountExists({
       model: discount,
       filter: {
@@ -231,7 +235,7 @@ class DiscountService {
       discount_type === "fixed_amount"
         ? +discount_value
         : totalOrder * (discount_value / 100);
-
+    console.log(amount)
     return {
       totalOrder,
       discount: amount,

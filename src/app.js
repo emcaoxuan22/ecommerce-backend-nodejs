@@ -14,7 +14,11 @@ app.use(
     extended: true,
   })
 );
-
+// require('./tests/checkredis.test')
+//test pub.sub redis
+// require('./tests/inventory.test')
+// const productTest = require('./tests/product.test')
+// productTest.purchaseProduct('product:003')
 // init db
 require("./dbs/init.mongodb");
 // const {checkOverLoad} = require("./helpers/check.connect")

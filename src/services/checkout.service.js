@@ -131,7 +131,7 @@ class CheckoutService {
     // check if co 1 san pham het hang trong kho
 
     if (acquireProduct.includes(false)) {
-      throw createHttpError.BadRequest;
+      throw createHttpError.BadRequest("mot so san pham da duoc cap nhat , vui long quay lai gio hang...");
     }
     const newOrder = await order.create({
       order_userId: userId,

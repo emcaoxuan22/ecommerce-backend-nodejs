@@ -13,7 +13,6 @@ router.get("/:product_id", asyncHandle(productController.findProduct));
 //authentication
 router.use(authentication);
 
-//logout
 router.post("/create-product", productController.createProduct);
 router.patch(
   "/update-product/:productId",
