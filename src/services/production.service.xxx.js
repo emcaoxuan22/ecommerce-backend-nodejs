@@ -13,6 +13,7 @@ const {
 } = require("../models/repositories/product.repo");
 const { removeUndefineObject, updateNestedObjectParser } = require("../utils");
 const { insertInventory } = require("../models/repositories/inventory.repo");
+const { options } = require("../routers");
 
 //define Fator classs to create product
 
@@ -114,6 +115,15 @@ class Product {
         shopId: this.product_shop,
         stock: this.product_quantity,
       });
+      // push noti to system collection
+      pushNotiToSystem({
+        type:'SHOP-001',
+        receivedId:this.product_shop,
+        options: {
+          product_name:this.product_name,
+          shope_name:this.product_shop
+        }
+      }).then(rs => console.log(rs)).catch(console.log(err))
     }
     return newProduct;
   }
