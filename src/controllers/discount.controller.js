@@ -25,6 +25,7 @@ class DiscountController {
   };
 
   getDiscountAmount = async (req, res, next) => {
+    console.log(req.body)
     new SuccessResponse({
       message: "Successfull Code Found",
       metaData: await DiscountService.getDiscountAmount(req.body),

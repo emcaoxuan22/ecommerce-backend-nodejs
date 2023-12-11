@@ -10,6 +10,14 @@ services:
     volumes:
       - redis-data:/data
 
+  mongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+
 networks:
   redis-network:
     driver: bridge
