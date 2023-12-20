@@ -9,7 +9,7 @@ const {
 
 const pexpire = promisify(redisClient.pexpire).bind(redisClient);
 const setnxAsync = promisify(redisClient.setnx).bind(redisClient);
-
+console.log("chayvao day");
 const acquireLock = async (productId, quantity, cartId) => {
   const key = `lock_v2023_${productId}`;
   const retryTimes = 10;
