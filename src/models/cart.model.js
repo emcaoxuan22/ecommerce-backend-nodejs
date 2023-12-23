@@ -14,7 +14,7 @@ var cartSchema = new Schema(
     },
     cart_products: { type: Array, require: true, default: [] },
     cart_count_product: { type: Number },
-    cart_userId: { type: Number, require: true },
+    cart_userId: { type: String, require: true },
   },
   {
     collection: COLLECTION_NAME,

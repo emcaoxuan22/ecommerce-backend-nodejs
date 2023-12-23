@@ -7,7 +7,8 @@ const {
 } = require("../configs/config.mongodb");
 
 const connectString = `mongodb://${host}:${port}/${name}`;
-console.log(connectString);
+// console.log(connectString);
+console.log("chay vao module mongoose");
 
 class Database {
   constructor() {

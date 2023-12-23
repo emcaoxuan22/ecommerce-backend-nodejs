@@ -10,6 +10,8 @@ class CheckoutController {
       metaData: await CheckoutService.checkoutReview(req.body),
     }).send(res);
   };
+
+  order = async (req, res, next) => {};
 }
 
 module.exports = new CheckoutController();

@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require("express");
-const CartController = require("../../controllers/cart.controller");
 const router = express.Router();
 const { asyncHandle } = require("../../helpers/asyncHander");
 const cartController = require("../../controllers/cart.controller");

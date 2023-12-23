@@ -14,6 +14,7 @@ const {
 const { removeUndefineObject, updateNestedObjectParser } = require("../utils");
 const { insertInventory } = require("../models/repositories/inventory.repo");
 const { options } = require("../routers");
+const { pushNotiToSystem } = require("./notification.service");
 
 //define Fator classs to create product
 
@@ -33,7 +34,7 @@ class ProductFactory {
 
   //update product
   static async updateProduct(type, ProductId, payload) {
-    console.log(payload)
+    console.log(payload);
     const productClass = ProductFactory.productRegistry[type];
     if (!productClass)
       throw createHttpError.BadRequest(`Invalid Product Types ${type}`);
@@ -117,13 +118,17 @@ class Product {
       });
       // push noti to system collection
       pushNotiToSystem({
-        type:'SHOP-001',
-        receivedId:this.product_shop,
+        type: "SHOP-001",
+        receivedId: this.product_shop,
         options: {
-          product_name:this.product_name,
-          shope_name:this.product_shop
-        }
-      }).then(rs => console.log(rs)).catch(console.log(err))
+          product_name: this.product_name,
+          shope_name: this.product_shop,
+        },
+      })
+        .then((rs) => console.log(rs))
+        .catch((err) => {
+          console.log(err);
+        });
     }
     return newProduct;
   }

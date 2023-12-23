@@ -1,7 +1,10 @@
 "use strict";
 const { Schema, Types } = require("mongoose");
 
-const convertToObjectIdMongodb = (id) => Types.ObjectId(id);
+const convertToObjectIdMongodb = (id) => {
+  console.log(id);
+  return new Types.ObjectId(id);
+};
 const getSelectData = (select = []) => {
   return Object.fromEntries(select.map((el) => [el, 1]));
 };
