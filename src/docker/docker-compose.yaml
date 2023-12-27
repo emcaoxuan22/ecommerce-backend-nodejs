@@ -15,6 +15,39 @@ services:
       - "6379:6379"
     networks:
       - long-network
+  zookeeper:
+    image: bitnami/zookeeper
+    container_name: my-zookeeper-container
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - long-network
 
+  kafka:
+    image: bitnami/kafka
+    container_name: my-kafka-container
+    ports:
+      - "9092:9092"
+    environment:
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    depends_on:
+      - zookeeper
+    networks:
+      - long-network
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: "my-rabbitmq-container"
+    ports:
+      - "5672:5672"  # Port for AMQP protocol
+      - "15672:15672" # Port for RabbitMQ Management UI
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=12345
+    networks:
+      - long-network
 networks:
   long-network:

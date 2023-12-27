@@ -6,8 +6,8 @@ const COLLECTION_NAME = 'notifications'
 
 const notificationSchema = new Schema({
     noti_type: {type:String, enum:['ORDER-001','ORDER-2','PROMOTION-001','SHOP-001'], require:true},
-    noti_senderId:{type:Number, require:true},
-    noti_receivedId:{type:Number, required:true},
+    noti_senderId:{type:String, require:true},
+    noti_receivedId:{type:String, required:true},
     noti_content:{type:String, required:true},
     noti_options:{type:Object, default:{}}
 },{
@@ -16,5 +16,5 @@ const notificationSchema = new Schema({
 })
 
 module.exports = {
-    NOTI: model(DOCUMENT_NAME, commentSchema)
+    NOTI: model(DOCUMENT_NAME, notificationSchema)
 }
