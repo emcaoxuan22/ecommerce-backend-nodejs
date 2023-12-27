@@ -2,6 +2,9 @@ const compression = require("compression");
 const express = require("express");
 const { default: helmet } = require("helmet");
 const morgan = require("morgan");
+const {
+  errorHandlingMiddleWare,
+} = require("./middlewares/errorHandlingMiddleware");
 const app = express();
 
 //init middleares
@@ -32,13 +35,5 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.use((error, req, res, next) => {
-  const statusCode = error.status || 500;
-  return res.status(statusCode).json({
-    status: "error",
-    code: statusCode,
-    message: error.message || "Internal Server Error",
-    stack: error.stack,
-  });
-});
+app.use(errorHandlingMiddleWare);
 module.exports = app;

@@ -7,7 +7,8 @@ const { createTokenPair, verifyJWT } = require("../auths/authUtils");
 const { BadRequestError } = require("../core/error.response");
 const { findByEmail } = require("./shop.service");
 const createHttpError = require("http-errors");
-
+const { ApiError } = require("../core/ApiError");
+const { StatusCodes } = require("http-status-codes");
 const rolesShop = {
   SHOP: "SHOP",
   WRITER: "WRITER",
@@ -15,20 +16,21 @@ const rolesShop = {
   ADMIN: "ADMIN",
 };
 class AccessService {
-  static handleRefreshToken = async ({ keyStore, user,refreshToken }) => {
-    const {userId, email} = user
+  static handleRefreshToken = async ({ keyStore, user, refreshToken }) => {
+    const { userId, email } = user;
 
-    if(keyStore.refreshTokenUsed.includes(refreshToken)) {
+    if (keyStore.refreshTokenUsed.includes(refreshToken)) {
       await KeyTokenService.deleteByUserId(userId);
       throw createHttpError.Forbidden(
         "something is happen wrong!!, pleas relogin"
       );
     }
-    if(keyStore.refreshToken !== refreshToken) throw createHttpError.Unauthorized('Shop not register')
+    if (keyStore.refreshToken !== refreshToken)
+      throw createHttpError.Unauthorized("Shop not register");
 
     //check userId or email
     const foundShop = await findByEmail({ email });
-    if(!foundShop) throw createHttpError.NotFound("email is not register");
+    if (!foundShop) throw createHttpError.NotFound("email is not register");
     //create 1 cap token moi
     const tokens = await createTokenPair(
       {
@@ -38,11 +40,11 @@ class AccessService {
       keyStore.publicKey,
       keyStore.privateKey
     );
-    keyStore.refreshToken = tokens.refreshToken
-    keyStore.refreshTokenUsed.push(refreshToken)
-    
-    await keyStore.save()
-    
+    keyStore.refreshToken = tokens.refreshToken;
+    keyStore.refreshTokenUsed.push(refreshToken);
+
+    await keyStore.save();
+
     return {
       user,
       tokens,
@@ -97,7 +99,10 @@ class AccessService {
   static signup = async ({ name, email, password }) => {
     const holderShop = await shopModel.findOne({ email }).lean();
     if (holderShop) {
-      throw new BadRequestError("Error: shop already registered");
+      throw new ApiError(
+        StatusCodes.CONFLICT,
+        "Error: shop already registered"
+      );
     }
     const passwordHash = await bcrypt.hash(password, 10);
     const newShop = await shopModel.create({
