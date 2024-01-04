@@ -1,6 +1,6 @@
 "use strict";
 
-const { Created, SuccessResponse } = require("./core/success.response");
+const { Created, SuccessResponse } = require("../core/success.response");
 const {
   createComment,
   getCommentsByParentId,

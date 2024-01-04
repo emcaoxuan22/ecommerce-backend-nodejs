@@ -2,7 +2,7 @@
 
 // const ProductService = require("../services/production.service")
 const ProductService = require("../services/production.service.xxx");
-const { Created, SuccessResponse } = require("./core/success.response");
+const { Created, SuccessResponse } = require("../core/success.response");
 const { asyncHandle } = require("../helpers/asyncHander");
 
 class ProductController {

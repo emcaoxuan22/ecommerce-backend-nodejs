@@ -5,7 +5,7 @@ const { createTokenPair, verifyJWT } = require("../auths/authUtils");
 const { StatusCodes } = require("http-status-codes");
 const nodemailer = require("nodemailer");
 
-const { ApiError } = require("../controllers/core/ApiError");
+const { ApiError } = require("../core/ApiError");
 const userModel = require("../models/user.model");
 const KeyTokenService = require("./keyToken.service");
 const { verifyEmail, sendVerificationEmail } = require("../auths/verifyEmail");

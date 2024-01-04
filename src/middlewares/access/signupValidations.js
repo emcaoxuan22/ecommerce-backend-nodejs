@@ -1,5 +1,5 @@
 const { StatusCodes } = require("http-status-codes");
-const { ApiError } = require("../../controllers/core/ApiError");
+const { ApiError } = require("../../core/ApiError");
 const { asyncHandle } = require("../../helpers/asyncHander");
 const Joi = require("joi");
 const signupValidation = asyncHandle(async (req, res, next) => {

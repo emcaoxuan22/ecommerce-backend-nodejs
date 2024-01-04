@@ -1,5 +1,5 @@
 "use strict";
-const { Created, SuccessResponse } = require("./core/success.response");
+const { Created, SuccessResponse } = require("../core/success.response");
 const CartService = require("../services/cart.service");
 class CartController {
   addToCart = async (req, res, next) => {
