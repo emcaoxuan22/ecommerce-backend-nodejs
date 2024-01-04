@@ -14,7 +14,7 @@ const {
 const { removeUndefineObject, updateNestedObjectParser } = require("../utils");
 const { insertInventory } = require("../models/repositories/inventory.repo");
 const { options } = require("../routers");
-const { pushNotiToSystem } = require("./notification.service");
+const { pushNotiToSystem } = require("../services/notification.service");
 
 //define Fator classs to create product
 
@@ -119,7 +119,8 @@ class Product {
       // push noti to system collection
       pushNotiToSystem({
         type: "SHOP-001",
-        receivedId: this.product_shop,
+        receivedId: "1001",
+        senderId: this.product_shop,
         options: {
           product_name: this.product_name,
           shope_name: this.product_shop,

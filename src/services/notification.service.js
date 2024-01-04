@@ -23,6 +23,30 @@ const pushNotiToSystem = async ({
   return newNoti;
 };
 
+const listNotiByUser = async ({
+  userId = "1001",
+  type = "ALL",
+  isReal = 0,
+}) => {
+  const match = { noti_receivedId: userId };
+  if (type !== "ALL") {
+    match["noti_type"] = type;
+  }
+  return await NOTI.aggregate([
+    { $match: match },
+    {
+      $project: {
+        noti_type: 1,
+        noti_senderId: 1,
+        noti_content: 1,
+        createAt: 1,
+        noti_options: 1,
+      },
+    },
+  ]);
+};
+
 module.exports = {
   pushNotiToSystem,
+  listNotiByUser,
 };
