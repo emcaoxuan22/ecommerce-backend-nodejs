@@ -1,0 +1,73 @@
+openapi: 3.0.3
+info:
+  title: ecomerce backend
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+    _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
+
+    Some useful links:
+    - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://127.0.0.1:3000
+tags:
+  - name: users
+    description: Operations about user
+paths:
+  /v1/api/user/login:
+    post:
+      tags:
+        - users
+      summary: Đăng Nhập
+      description: Đăng nhập vào hệ thống
+      operationId: login
+      requestBody:
+        description: Thông tin đăng nhập
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: emcaoxuan22@gmail.com
+                password:
+                  type: string
+                  example: Longdtttk58@
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Login OK
+                  result:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTg2ZmYxZWMyOWM2YjJlZGMxZTZhYzUiLCJlbWFpbCI6ImVtY2FveHVhbjIyQGdtYWlsLmNvbSIsImlhdCI6MTcwMzQxMDExMiwiZXhwIjoxNzAzNTgyOTEyfQ.btqXf6Fl9Hrhl9QEw_9-FaWu3N7zLIcbcYHhh_Zfv6H9Yqf9EA_df7akYQ1bBO_T7f7G8ueMdiI-EFkLQukILH3AGsADpqzJFWKsgry7RC-Xr0099yo268_8asMFcqpnutHuONZ4ulpSLVeHLPZHbkdOKXS0HKm309aKqVHy7R6NTMD1A0lj_VcCuX9GYta5O4UnrIMqU9T6R6Pu14BLqJV8TJxL-zn4WHTzBmrhxdRWgS6KauWquxrxncZsOVpHVpQ6hrDT7q_UdGMBW1haHMiUVJfdoEpYCDRkG8owi15A_casCXk83kfethvX3UuKS7xQSS-4akIbWs5R_V54Q0kJ7C7evVB_h6-7UPNbqkoCmil_Grcv3-tRelSfefoJDH_Ool0Ji_Q8eWg0QOWPsWcKQv2EYzQ7oX-ow8P1udFQMf-_FmhU_gbsOon7WibpkzuAlNpZiQSU_x_PhzjpemMwGtn6A4cmgW_jxW7peIrfb7Ncr3ikLDboQYT12QCSNWaVb9NABjkFDI3ilzflYmpMIx8XUByDx7bIBRaMsGXT6ItT5sFNonaRS6aErzpq5eXyer8QxluZJoB7kx5VqM85lRIWG3vmN3D6iDL9DCSnegQ33K25uoI_blqzFyNtatgegIt9EObRgwkMyu4k-6NGoFjL2knZ0ajGPMjfhkA
+                      refresh_token:
+                        type: string
+                        example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTg2ZmYxZWMyOWM2YjJlZGMxZTZhYzUiLCJlbWFpbCI6ImVtY2FveHVhbjIyQGdtYWlsLmNvbSIsImlhdCI6MTcwMzQxMDExMiwiZXhwIjoxNzA0MDE0OTEyfQ.PV93mHjZamU0l3YeciYA_F06DtZuav0QVW0ui-Dqt8uUpWtpOtBdZDi3ACe21yPUvPZG7OmSMiuARiYQzs7eClUIUncErcOcMzDMyj0oOvF8lO9rqvDnYXxhLPog8IOF5g2JKapByM21NzJmA-IC3FeTtRoEY04N_4QlrlqeQWEvlJpTqRTDcSqPO8jRmpP6n1VLxjn7puwLQbU5dMLGsLzQmoOk94hpmyMYfP1C92_a_BprjiQfVZhL4UOp_2GCmIxSoj4XyObTR7lojMM8zIy5quRXYWHRaAXntkXWK3nIVCdKxhxPDpjoIB16VfIpxaF2a0A-7A63PdMvNl1_8pQW8gsUc2FKKViZsx9So3VupmOXRmeQ-5Kj1yKzoInQYci9Ao-m23PEeIDRuU4rTo7HSSCl4ZuphkuwX3auwDXrTmOLoRpnc3x0nH4WC1jeeXpyehrQQ6w7c2Dza9f4-iOlVDjS5PZetz_fPh-H3AZHJki-knGXpisKiVmuoLF9hNgASmd5cIdjB6LAqXqftgFAfl7cMrHVI67QYJ0kybsj6q6lcgIl9SJn6jlJ92k9iYs-Vik5aRiGh6QqcaqDBGhn3oudCnsO7f-cHyk7KCfzUes4vCXqgSExioXwH_4Y5wwA122yv_4iepBfDTK1ufi9POMkEbfSpxk2vzga_qc
+        "403":
+          description: loi

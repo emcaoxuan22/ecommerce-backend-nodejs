@@ -2,7 +2,7 @@ const { StatusCodes } = require("http-status-codes");
 const crypto = require("crypto");
 
 const { createTokenPair, verifyJWT } = require("../auths/authUtils");
-const { ApiError } = require("../core/ApiError");
+const { ApiError } = require("../controllers/core/ApiError");
 const userModel = require("../models/user.model");
 const KeyTokenService = require("./keyToken.service");
 const handelCallbackService = async ({ profile, accessToken }) => {

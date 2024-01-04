@@ -8,7 +8,6 @@ const {
 
 const connectString = `mongodb://${host}:${port}/${name}`;
 // console.log(connectString);
-console.log("chay vao module mongoose");
 
 class Database {
   constructor() {
@@ -33,10 +32,10 @@ class Database {
   }
 
   static getInstance() {
-    if (!Database.instance) {
-      Database.instance = new Database();
+    if (!this.instance) {
+      this.instance = new Database();
     }
-    return Database.instance;
+    return this.instance;
   }
 }
 const instanceMongodb = Database.getInstance();

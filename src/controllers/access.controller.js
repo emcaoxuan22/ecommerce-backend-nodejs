@@ -1,6 +1,6 @@
 "use strict";
 
-const { Created, SuccessResponse } = require("../core/success.response");
+const { Created, SuccessResponse } = require("./core/success.response");
 const { asyncHandle } = require("../helpers/asyncHander");
 const AccessService = require("../services/access.service");
 
@@ -8,17 +8,17 @@ class AccessController {
   handleRefeshToken = asyncHandle(async (req, res, next) => {
     const { refreshToken } = req.body;
 
-    res
-      .status(200)
-      .json(await AccessService.handleRefreshToken({ 
-        refreshToken:req.refreshToken,
+    res.status(200).json(
+      await AccessService.handleRefreshToken({
+        refreshToken: req.refreshToken,
         user: req.user,
-        keyStore: req.keyStore
-       }));
+        keyStore: req.keyStore,
+      })
+    );
   });
 
   login = asyncHandle(async (req, res, next) => {
-    console.log('vao day ne')
+    console.log("vao day ne");
     const { email, password } = req.body;
     res.status(200).json(await AccessService.login({ email, password }));
   });

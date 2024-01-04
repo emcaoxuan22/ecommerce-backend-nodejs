@@ -4,10 +4,10 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const KeyTokenService = require("./keyToken.service");
 const { createTokenPair, verifyJWT } = require("../auths/authUtils");
-const { BadRequestError } = require("../core/error.response");
+const { BadRequestError } = require("../controllers/core/error.response");
 const { findByEmail } = require("./shop.service");
 const createHttpError = require("http-errors");
-const { ApiError } = require("../core/ApiError");
+const { ApiError } = require("../controllers/core/ApiError");
 const { StatusCodes } = require("http-status-codes");
 const rolesShop = {
   SHOP: "SHOP",
@@ -62,17 +62,17 @@ class AccessService {
       throw new BadRequestError("password is not true");
     }
     //create AT and RT and save
-      const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
-        modulusLength: 4096,
-        publicKeyEncoding: {
-          type: "pkcs1",
-          format: "pem",
-        },
-        privateKeyEncoding: {
-          type: "pkcs1",
-          format: "pem",
-        },
-      });
+    const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
+      modulusLength: 4096,
+      publicKeyEncoding: {
+        type: "pkcs1",
+        format: "pem",
+      },
+      privateKeyEncoding: {
+        type: "pkcs1",
+        format: "pem",
+      },
+    });
 
     const tokens = await createTokenPair(
       {

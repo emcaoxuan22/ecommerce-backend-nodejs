@@ -1,6 +1,6 @@
 "use strict";
 
-const { Created, SuccessResponse } = require("../core/success.response");
+const { Created, SuccessResponse } = require("./core/success.response");
 const { asyncHandle } = require("../helpers/asyncHander");
 const { handelCallbackService } = require("../services/google.service");
 const userService = require("../services/user.service");
