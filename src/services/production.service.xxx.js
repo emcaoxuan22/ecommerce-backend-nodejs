@@ -22,11 +22,11 @@ class ProductFactory {
   static productRegistry = {};
 
   static registerProductType(type, classRef) {
-    ProductFactory.productRegistry[type] = classRef;
+    this.productRegistry[type] = classRef;
   }
 
   static async createProduct(type, payload) {
-    const productClass = ProductFactory.productRegistry[type];
+    const productClass = this.productRegistry[type];
     if (!productClass)
       throw createHttpError.BadRequest(`Invalid Product Types ${type}`);
     return new productClass(payload).createProduct();
