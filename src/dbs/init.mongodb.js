@@ -1,14 +1,21 @@
 "use strict";
 const mongoose = require("mongoose");
 const { countConnect } = require("../helpers/check.connect");
+require("dotenv").config()
 
-// const {
-//   db: { host, port, name },
-// } = require("../configs/config.mongodb");
-
+const {
+  db: { host, port, name },
+} = require("../configs/config.mongodb");
+console.log('day la env', process.env.NODE_ENV )
 // const connectString = `mongodb://${host}:${port}/${name}`;
 const connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
-// console.log(connectString);
+// let connectString;
+// if (process.env.NODE_ENV === 'pro') {
+//   connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
+// }else{
+//   connectString = `mongodb://${host}:${port}/${name}`
+// }
+
 
 class Database {
   constructor() {
