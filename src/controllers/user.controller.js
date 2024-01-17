@@ -14,7 +14,6 @@ class userController {
   });
   login = asyncHandle(async (req, res, next) => {
     console.log(`[P]:: `, req.body);
-    console.log("vao login");
     new Created({
       message: "Login OK",
       metaData: await userService.login(req.body),
@@ -22,7 +21,7 @@ class userController {
   });
   verifyEmail = asyncHandle(async (req, res) => {
     const result = await userService.verifyEmail(req.params);
-    res.send("okeee");
+    res.send("oke");
   });
 }
 

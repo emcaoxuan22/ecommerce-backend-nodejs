@@ -5,7 +5,7 @@ require("dotenv").config()
 
 // const PORT= port
 const server = app.listen(3000, () => {
-    console.log(`WSV eCommercer start with success`)
+    console.log(`WSV eCommerce start with success`)
 })
 
 process.on("SIGINT", () => {
