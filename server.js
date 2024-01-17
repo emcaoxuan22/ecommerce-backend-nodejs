@@ -1,10 +1,10 @@
 const app = require("./src/app");
-const { app: {port}} = require("./src/configs/config.mongodb")
+// const { app: {port}} = require("./src/configs/config.mongodb")
 require("dotenv").config()
 
 
-const PORT= port
-const server = app.listen(PORT, () => {
+// const PORT= port
+const server = app.listen(3000, () => {
     console.log(`WSV eCommercer start with success`)
 })
 
