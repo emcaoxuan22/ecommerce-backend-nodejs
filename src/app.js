@@ -47,11 +47,11 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 // init router
+
+app.use("/", require("./routers"));
 app.use((req, res, next) => {
   res.redirect('/api-docs');
 });
-app.use("/", require("./routers"));
-
 app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
