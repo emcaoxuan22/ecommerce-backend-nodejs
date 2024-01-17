@@ -26,10 +26,10 @@ class Database {
     mongoose
       .connect(connectString)
       .then((_) => {
-        console.log(`connect mogoose Success ${name}`);
+        console.log(`connect mogoose Success`);
         countConnect();
       })
-      .catch((err) => console.log(`Error Connect`));
+      .catch((err) => console.log(`Error Connect`, err));
   }
 
   static getInstance() {
