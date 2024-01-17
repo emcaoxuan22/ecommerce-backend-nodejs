@@ -6,6 +6,7 @@ require("dotenv").config()
 const {
   db: { host, port, name },
 } = require("../configs/config.mongodb");
+console.log(host, port, name)
 console.log('day la env', process.env.NODE_ENV )
 // const connectString = `mongodb://${host}:${port}/${name}`;
 const connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
