@@ -94,7 +94,7 @@ class CartService {
     const foundProduct = await getProductById(productId);
     if (!foundProduct) throw createHttpError("");
 
-    // comppare
+    // compare
     if (foundProduct.product_shop.toString() !== shop_order_ids[0]?.shopId)
       throw createHttpError("Product do not belong to the shop");
     if (quantity === 0) {
