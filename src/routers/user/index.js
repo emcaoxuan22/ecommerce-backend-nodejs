@@ -16,9 +16,8 @@ router.post("/signup", userController.signUp);
 // Express route handler
 
 //authentication
-// router.use(authentication);
+router.use(authentication);
+router.post("/logout", userController.logout);
+router.post("/handleRefreshToken", userController.handleRefeshToken);
 
-//logout
-// router.post("/logout", accessController.logout);
-// router.post("/shop/handleRefreshToken", accessController.handleRefeshToken);
 module.exports = router;

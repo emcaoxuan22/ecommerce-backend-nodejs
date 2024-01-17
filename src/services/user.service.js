@@ -12,6 +12,48 @@ const { verifyEmail, sendVerificationEmail } = require("../auths/verifyEmail");
 const { convertToObjectIdMongodb } = require("../utils");
 
 class UserService {
+  static findByEmail = async ({
+    email,
+    select = { email: 1, password: 1, name: 1, status: 1 },
+  }) => {
+    return await userModel.findOne({ email }).select(select).lean();
+  };
+
+  static handleRefreshToken = async ({ keyStore, user, refreshToken }) => {
+    const { userId, email, roles } = user;
+
+    if (keyStore.refreshTokenUsed.includes(refreshToken)) {
+      await KeyTokenService.deleteByUserId(userId);
+      throw createHttpError.Forbidden(
+        "something is happen wrong!!, pleas relogin"
+      );
+    }
+    if (keyStore.refreshToken !== refreshToken)
+      throw createHttpError.Unauthorized("Shop not register");
+
+    //check userId or email
+    const foundShop = await this.findByEmail({ email });
+    if (!foundShop) throw createHttpError.NotFound("email is not register");
+    //create 1 cap token moi
+    const tokens = await createTokenPair(
+      {
+        userId,
+        email,
+        roles,
+      },
+      keyStore.publicKey,
+      keyStore.privateKey
+    );
+    keyStore.refreshToken = tokens.refreshToken;
+    keyStore.refreshTokenUsed.push(refreshToken);
+
+    await keyStore.save();
+
+    return {
+      user,
+      tokens,
+    };
+  };
   static sinup = async ({ username, password, email }) => {
     const foundEmaill = await userModel.findOne({
       email,
@@ -101,6 +143,11 @@ class UserService {
         token: tokens,
       },
     };
+  };
+
+  static logout = async ({ keyStore }) => {
+    const delKey = await KeyTokenService.removeKeyById(keyStore._id);
+    return delKey;
   };
   static verifyEmail = async ({ userId, verificationCode }) => {
     // Kiểm tra xem userId và verificationCode có hợp lệ hay không
