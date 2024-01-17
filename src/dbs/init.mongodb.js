@@ -6,7 +6,8 @@ const {
   db: { host, port, name },
 } = require("../configs/config.mongodb");
 
-const connectString = `mongodb://${host}:${port}/${name}`;
+// const connectString = `mongodb://${host}:${port}/${name}`;
+const connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
 // console.log(connectString);
 
 class Database {
