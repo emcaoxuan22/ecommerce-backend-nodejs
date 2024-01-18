@@ -11,7 +11,7 @@ const dev  = {
 
 }
 
-const pro  = {
+const production  = {
     app: {
         port: process.env.PRO_APP_PORT || 3000
     },
@@ -23,7 +23,7 @@ const pro  = {
 
 }
 console.log('log ra day', process.env.PRO_DB_NAME)
-const config = {dev, pro}
+const config = {dev, production}
 const env = process.env.NODE_ENV || 'dev'
 console.log('congif env',config[env])
 
