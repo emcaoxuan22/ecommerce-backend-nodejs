@@ -4,18 +4,18 @@ const { countConnect } = require("../helpers/check.connect");
 require("dotenv").config()
 
 const {
-  db: { host, port, name },
+  db
 } = require("../configs/config.mongodb");
-console.log(host, port, name)
+console.log(db.host, db.port, db.name)
 console.log('day la env', process.env.NODE_ENV )
 // const connectString = `mongodb://${host}:${port}/${name}`;
-const connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
-// let connectString;
-// if (process.env.NODE_ENV === 'pro') {
-//   connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
-// }else{
-//   connectString = `mongodb://${host}:${port}/${name}`
-// }
+// const connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
+let connectString;
+if (process.env.NODE_ENV === 'pro') {
+  connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
+}else{
+  connectString = `mongodb://${db.host}:${db.port}/${db.name}`
+}
 
 
 class Database {
