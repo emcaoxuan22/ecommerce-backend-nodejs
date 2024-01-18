@@ -22,7 +22,7 @@ const pro  = {
     }
 
 }
-console.log('log ra day', process.env.NODE_ENV)
+console.log('log ra day', process.env.PRO_DB_NAME)
 const config = {dev, pro}
 const env = process.env.NODE_ENV || 'dev'
 
