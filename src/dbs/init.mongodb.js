@@ -4,17 +4,14 @@ const { countConnect } = require("../helpers/check.connect");
 require("dotenv").config()
 
 const {
-  db
+  db: { host, port, name },
 } = require("../configs/config.mongodb");
-console.log(db.host, db.port, db.name)
-console.log('day la env', process.env.NODE_ENV )
-// const connectString = `mongodb://${host}:${port}/${name}`;
 // const connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
 let connectString;
-if (process.env.NODE_ENV === 'pro') {
+if (process.env.NODE_ENV === 'production') {
   connectString = `mongodb+srv://emcaoxuan22:HDfqPaLNlnY8Bxcr@cluster0.xtsyfdn.mongodb.net/`
 }else{
-  connectString = `mongodb://${db.host}:${db.port}/${db.name}`
+  connectString = `mongodb://${host}:${port}/${name}`
 }
 
 
@@ -34,7 +31,7 @@ class Database {
     mongoose
       .connect(connectString)
       .then((_) => {
-        console.log(`connect mogoose Success`);
+        console.log(`connect mongoose Success `);
         countConnect();
       })
       .catch((err) => console.log(`Error Connect`, err));

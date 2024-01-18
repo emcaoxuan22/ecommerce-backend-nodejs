@@ -22,9 +22,7 @@ const production  = {
     }
 
 }
-console.log('log ra day', process.env.PRO_DB_NAME)
 const config = {dev, production}
 const env = process.env.NODE_ENV || 'dev'
-console.log('congif env',config[env])
 
 module.exports = config[env]
