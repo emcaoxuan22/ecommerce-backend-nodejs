@@ -4,12 +4,23 @@ const { default: helmet } = require("helmet");
 const morgan = require("morgan");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
-const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerJsDoc = require("swagger-jsdoc");
 const fs = require("fs");
 const path = require("path");
 const YAML = require("yaml");
-const file = fs.readFileSync(path.resolve("ecommerce-swagger.yaml"), "utf8");
-const swaggerDocument = YAML.parse(file);
+// const file = fs.readFileSync(path.resolve("./ecommerce-swagger.yaml"), "utf8");
+const options =  {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'ecommerce ',
+      version: '1.0.0',
+    },
+  },
+  apis: [path.resolve(__dirname, './openapi/*.yaml')], // files containing annotations as above
+};
+const openapiSpecification = swaggerJsDoc(options);
+// const swaggerDocument = YAML.parse(file);
 const {
   errorHandlingMiddleWare,
 } = require("./middlewares/errorHandlingMiddleware");
@@ -25,7 +36,7 @@ app.use(
     extended: true,
   })
 );
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 // require('./tests/checkredis.test')
 //test pub.sub redis
 // require('./tests/inventory.test')
@@ -39,8 +50,8 @@ require("./dbs/init.mongodb");
 // cấu hình cors
 app.use(cors());
 const corsOptions = {
-  // origin: "http://localhost:3000",
-  origin: "https://longcv.onrender.com",
+  origin: "http://localhost:3000",
+  // origin: "https://longcv.onrender.com",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,

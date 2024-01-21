@@ -41,6 +41,7 @@ const updateProductById = async ({
   });
 };
 const queryProduct = async ({ query, limit, skip }) => {
+  console.log('day la query', query)
   return await product
     .find(query)
     .populate("product_shop", "name email -_id")

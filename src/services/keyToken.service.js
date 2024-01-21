@@ -10,6 +10,7 @@ class KeyTokenService {
     privateKey,
     refreshToken,
   }) => {
+    console.log('userId', userId)
     try {
       //lv 0
       // const tokens = await keyTokenModel.create({
@@ -19,7 +20,7 @@ class KeyTokenService {
       // });
       // return tokens ? tokens.publicKey : null;
       //lv xxx
-      const filter = { user: userId },
+      const filter = { userId: userId },
         update = {
           publicKey,
           privateKey,
@@ -39,7 +40,7 @@ class KeyTokenService {
   };
 
   static findByUserId = async (userId) => {
-    return await keyTokenModel.findOne({user: new Types.ObjectId(userId)})
+    return await keyTokenModel.findOne({userId})
   };
 
   static removeKeyById = async (id) => {

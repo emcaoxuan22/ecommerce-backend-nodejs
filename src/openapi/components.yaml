@@ -1,0 +1,28 @@
+components:
+  schemas:
+    SignupBody:
+      type: object
+      properties:
+        username:
+          type: string
+          example: cao van long
+        email:
+          type: string
+          example: emcaoxuan22@gmail.com
+        password:
+          type: string
+          example: Longdtttk58@
+    LoginBody:
+      type: object
+      properties:
+        email:
+          type: string
+          example: emcaoxuan22@gmail.com
+        password:
+          type: string
+          example: Longdtttk58@
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

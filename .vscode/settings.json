@@ -1,4 +1,7 @@
 {
     "thunder-client.workspaceRelativePath": "",
-    "thunder-client.saveToWorkspace": true
+    "thunder-client.saveToWorkspace": true,
+    "cSpell.words": [
+        "signup"
+    ]
 }

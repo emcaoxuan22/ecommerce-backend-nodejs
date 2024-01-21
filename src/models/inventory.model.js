@@ -18,7 +18,7 @@ const inventorySchema = new Schema(
       require: true,
     },
     inven_shopId: {
-      type: Types.ObjectId,
+      type: Number,
       ref: "Shop",
     },
     inven_reservations: {

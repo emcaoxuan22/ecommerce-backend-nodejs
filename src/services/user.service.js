@@ -4,26 +4,27 @@ const crypto = require("crypto");
 const { createTokenPair, verifyJWT } = require("../auths/authUtils");
 const { StatusCodes } = require("http-status-codes");
 const nodemailer = require("nodemailer");
+const { v4: uuidv4 } = require('uuid');
 
 const { ApiError } = require("../core/ApiError");
 const userModel = require("../models/user.model");
 const KeyTokenService = require("./keyToken.service");
 const { verifyEmail, sendVerificationEmail } = require("../auths/verifyEmail");
 const { convertToObjectIdMongodb } = require("../utils");
-
 class UserService {
   static findByEmail = async ({
-    email,
-    select = { email: 1, password: 1, name: 1, status: 1 },
+    usr_email,
+    select = { usr_email: 1, usr_password: 1, usr_name: 1, usr_status: 1 },
   }) => {
-    return await userModel.findOne({ email }).select(select).lean();
+    return await userModel.findOne({ usr_email }).select(select).lean();
   };
 
   static handleRefreshToken = async ({ keyStore, user, refreshToken }) => {
-    const { userId, email, roles } = user;
+
+    const { usr_id, usr_email, usr_roles } = user;
 
     if (keyStore.refreshTokenUsed.includes(refreshToken)) {
-      await KeyTokenService.deleteByUserId(userId);
+      await KeyTokenService.deleteByUserId(usr_id);
       throw createHttpError.Forbidden(
         "something is happen wrong!!, pleas relogin"
       );
@@ -32,14 +33,14 @@ class UserService {
       throw createHttpError.Unauthorized("Shop not register");
 
     //check userId or email
-    const foundShop = await this.findByEmail({ email });
+    const foundShop = await this.findByEmail({ usr_email });
     if (!foundShop) throw createHttpError.NotFound("email is not register");
     //create 1 cap token moi
     const tokens = await createTokenPair(
       {
-        userId,
-        email,
-        roles,
+        usr_id,
+        usr_email,
+        usr_roles,
       },
       keyStore.publicKey,
       keyStore.privateKey
@@ -54,18 +55,19 @@ class UserService {
       tokens,
     };
   };
-  static sinup = async ({ username, password, email }) => {
-    const foundEmaill = await userModel.findOne({
-      email,
+  static signup = async ({ usr_name, usr_password, usr_email }) => {
+    const foundEmail = await userModel.findOne({
+      usr_email,
       isEmailVerified: true,
     });
-    if (foundEmaill) throw new ApiError(StatusCodes.CONFLICT, "user is exists");
+    if (foundEmail) throw new ApiError(StatusCodes.CONFLICT, "user is exists");
     const verificationCode = Math.random().toString(36).substring(2, 8);
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(usr_password, 10);
     const userObj = await userModel.create({
-      userName: username,
-      email,
-      password: passwordHash,
+      usr_id: Math.floor(Math.random() * 1000000),
+      usr_name,
+      usr_email,
+      usr_password: passwordHash,
       emailVerificationCode: verificationCode,
     });
     // create AT and RT for user
@@ -82,19 +84,20 @@ class UserService {
     });
     const tokens = await createTokenPair(
       {
-        userId: userObj._id,
-        email,
+        usr_id: userObj.usr_id,
+        usr_email:userObj.usr_email,
+        usr_roles: userObj.usr_role
       },
       publicKey,
       privateKey
     );
     const tokenKeyString = await KeyTokenService.createKeyToken({
-      userId: userObj._id,
+      userId: userObj.usr_id,
       publicKey: publicKey,
       privateKey: privateKey,
       refreshToken: tokens.refreshToken,
     });
-    await sendVerificationEmail(email, verificationCode);
+    await sendVerificationEmail(usr_email, verificationCode);
     return {
       metaData: {
         shop: userObj,
@@ -103,12 +106,11 @@ class UserService {
     };
   };
   static login = async ({ email, password }) => {
-    const foundUser = await userModel.findOne({ email });
+    const foundUser = await userModel.findOne({ usr_email:email });
     if (!foundUser)
       throw new ApiError(StatusCodes.NOT_FOUND, "user do not exists");
-    console.log(foundUser);
     //check password
-    const match = await bcrypt.compare(password, foundUser.password);
+    const match = await bcrypt.compare(password, foundUser.usr_password);
     if (!match) throw new ApiError(StatusCodes.FORBIDDEN, "password is wrong");
     // create AT and RT
     const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
@@ -124,14 +126,15 @@ class UserService {
     });
     const tokens = await createTokenPair(
       {
-        userId: foundUser._id,
-        email,
+        usr_id: foundUser.usr_id,
+        usr_email: foundUser.usr_email,
+        usr_roles: foundUser.usr_role
       },
       publicKey,
       privateKey
     );
     const tokenKeyString = await KeyTokenService.createKeyToken({
-      userId: foundUser._id,
+      userId: foundUser.usr_id,
       publicKey: publicKey,
       privateKey: privateKey,
       refreshToken: tokens.refreshToken,
@@ -151,8 +154,8 @@ class UserService {
   };
   static verifyEmail = async ({ userId, verificationCode }) => {
     // Kiểm tra xem userId và verificationCode có hợp lệ hay không
-    const user = await userModel.findById({
-      _id: convertToObjectIdMongodb(userId),
+    const user = await userModel.findOne({
+      usr_id:userId,
     });
     if (!user) throw new ApiError(StatusCodes.NOT_FOUND, "user not exists");
     if (user.emailVerificationCode === verificationCode) {

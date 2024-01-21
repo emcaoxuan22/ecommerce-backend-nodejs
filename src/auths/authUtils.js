@@ -57,7 +57,7 @@ const authentication = asyncHandle(async (req, res, next) => {
   if (req.headers[HEADER.REFRESHTOKEN]) {
     const refreshtoken = req.headers[HEADER.REFRESHTOKEN];
     const decodeUser = JWT.verify(refreshtoken, keyStore.publicKey);
-    if (userId !== decodeUser.userId)
+    if (userId != decodeUser.usr_id)
       throw createHttpError.Unauthorized("Invalid user");
     req.keyStore = keyStore;
     req.refreshToken = refreshtoken;
@@ -69,7 +69,7 @@ const authentication = asyncHandle(async (req, res, next) => {
     throw createHttpError.BadRequest("invalid request");
   }
   const decodeUser = JWT.verify(accessToken, keyStore.publicKey);
-  if (userId !== decodeUser.userId) {
+  if (userId != decodeUser.usr_id) {
     throw createHttpError.BadRequest("invalid user");
   }
   req.keyStore = keyStore;

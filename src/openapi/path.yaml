@@ -1,0 +1,67 @@
+openapi: 3.0.3
+servers:
+  - url: http://127.0.0.1:3000
+tags:
+  - name: users
+    description: Operations about user
+
+paths:
+  /v1/api/user/signup:
+    post:
+      tags:
+        - users
+      summary: Đăng ký
+      description: Đăng ký vào hệ thống
+      operationId: login
+      requestBody:
+        description: Thông tin đăng ký
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupBody'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+
+  /v1/api/user/verify-email:
+    post:
+      tags:
+        - users
+      summary: Xác nhận Email
+      description: Đăng nhập vào email lấy mã xác nhận
+      operationId: verify email
+      responses:
+        "200":
+          description: Successful operation
+  
+  /v1/api/user/login:
+    post:
+      tags:
+        - users
+      summary: Đăng Nhập
+      description: Đăng nhập vào hệ thống
+      operationId: login
+      requestBody:
+        description: Thông tin đăng nhập
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginBody'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+
+  /v1/api/user/handleRefreshToken:
+    post:
+      tags:
+        - users
+      summary: Xử lý handleRefreshToken
+      description: Xử lý handleRefreshToken
+      security:
+        - BearerAuth: []
+      operationId: login
+      responses:
+        "200":
+          description: handleRefreshToken success     

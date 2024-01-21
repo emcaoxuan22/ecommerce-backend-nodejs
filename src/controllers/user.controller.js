@@ -6,7 +6,6 @@ const userService = require("../services/user.service");
 
 class userController {
   handleRefeshToken = asyncHandle(async (req, res, next) => {
-    console.log("xu ly handle refreshtoken");
 
     res.status(200).json(
       await userService.handleRefreshToken({
@@ -20,7 +19,7 @@ class userController {
     console.log(`[P]:: `, req.body);
     new Created({
       message: "Register OK",
-      metaData: await userService.sinup(req.body),
+      metaData: await userService.signup(req.body),
     }).send(res);
   });
   login = asyncHandle(async (req, res, next) => {

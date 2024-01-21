@@ -42,7 +42,7 @@ class ProductController {
     new SuccessResponse({
       massage: "get list draft success!",
       metaData: await ProductService.findAllDraftsForShop({
-        product_shop: req.user.userId,
+        product_shop: req.user.usr_id,
       }),
     }).send(res);
   };

@@ -34,6 +34,5 @@ var roleSchema = new Schema(
     collection: COLLECTION_NAME
   }
 );
-
 //Export the model
 module.exports = mongoose.model(DOCUMENT_NAME, roleSchema);
