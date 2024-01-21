@@ -1,0 +1,328 @@
+openapi: 3.0.3
+servers:
+  - url: http://127.0.0.1:3000
+tags:
+  - name: users
+    description: Operations about user
+  - name: products
+    description: Operations about product
+  - name: discounts
+    description: Operations about discounts
+  - name: inventory
+    description: Operations about inventory
+  - name: notification
+    description: Operations about notification
+  - name: upload
+    description: Operations about upload
+
+paths:
+  /v1/api/shop/signup:
+    post:
+      tags:
+        - users
+      summary: Đăng ký
+      description: Đăng ký vào hệ thống
+      operationId: login
+      requestBody:
+        description: Thông tin đăng ký
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupBody'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+
+  /v1/api/shop/verify-email:
+    post:
+      tags:
+        - users
+      summary: Xác nhận Email
+      description: Đăng nhập vào email lấy mã xác nhận
+      operationId: verify email
+      responses:
+        "200":
+          description: Successful operation
+  
+  /v1/api/shop/login:
+    post:
+      tags:
+        - users
+      summary: Đăng Nhập
+      description: Đăng nhập vào hệ thống
+      operationId: login
+      requestBody:
+        description: Thông tin đăng nhập
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginBody'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+
+  /v1/api/shop/handleRefreshToken:
+    post:
+      tags:
+        - users
+      summary: Xử lý handleRefreshToken
+      description: Xử lý handleRefreshToken
+      security:
+        - BearerAuth: []
+      operationId: login
+      responses:
+        "200":
+          description: handleRefreshToken success     
+
+  /v1/api/product/create-product:
+    post:
+      tags:
+        - products
+      summary: tạo mới sản phẩm 
+      description: tạo mới sản phẩm
+      security:
+        - BearerAuth: []
+      operationId: create product
+      responses:
+        "200":
+          description: create product success
+  
+  /v1/api/product/update-product:
+    patch:
+      tags:
+        - products
+      summary: cập nhật sản phẩm 
+      description: cập nhật sản phẩm
+      security:
+        - BearerAuth: []
+      operationId: update product
+      responses:
+        "200":
+          description: update product success
+
+  /v1/api/product/publish-product-by-shop/:product_id:
+    post:
+      tags:
+        - products
+      summary: publish product by shop 
+      description: publish product by shop
+      security:
+        - BearerAuth: []
+      operationId: publish product by shop
+      responses:
+        "200":
+          description: publish product by shop success
+
+  /v1/api/product/unpublish-product-by-shop/:product_id:
+    post:
+      tags:
+        - products
+      summary: unpublish product by shop 
+      description: unpublish product by shop
+      security:
+        - BearerAuth: []
+      operationId: publish product by shop
+      responses:
+        "200":
+          description: unpublish product by shop success
+    
+  /v1/api/product/drafts/all:
+    get:
+      tags:
+        - products
+      summary: lấy danh sách sản phẩm chưa kích hoạt 
+      description: lấy danh sách sản phẩm chưa kích hoạt
+      security:
+        - BearerAuth: []
+      operationId: get draft product by shop
+      responses:
+        "200":
+          description: get draft product by shop
+
+  /v1/api/product/publish/all:
+    get:
+      tags:
+        - products
+      summary: lấy danh sách sản phẩm đã publish 
+      description: lấy danh sách sản phẩm đã publish
+      security:
+        - BearerAuth: []
+      operationId: get draft product by shop
+      responses:
+        "200":
+          description: get draft product by shop
+
+  /v1/api/product/:
+    get:
+      tags:
+        - products
+      summary: get all product 
+      description: lấy toàn bộ sản phẩm trong hệ thống
+      security:
+        - BearerAuth: []
+      operationId: get all product
+      responses:
+        "200":
+          description: handleRefreshToken success 
+
+  /v1/api/product/:keySearch:
+    get:
+      tags:
+        - products
+      summary: tìm kiểm sản phẩm 
+      parameters:
+        - name: userId
+          in: query
+          description: ID của người dùng
+          required: true
+          schema:
+            type: integer
+        - name: startDate
+          in: query
+          description: Ngày bắt đầu
+          required: false
+          schema:
+            type: string
+            format: date
+      description: tìm kiếm sản phẩm
+      security:
+        - BearerAuth: []
+      operationId: search product
+      responses:
+        "200":
+          description: search product success 
+
+  /v1/api/product/:id:
+    get:
+      tags:
+        - products
+      summary: tìm kiểm sản phẩm theo ID 
+      description: tìm kiểm sản phẩm theo ID 
+      security:
+        - BearerAuth: []
+      operationId: search product by ID
+      responses:
+        "200":
+          description: search product success 
+    
+  /v1/api/discount/:
+    post:
+      tags:
+        - discounts
+      summary: tạo mới discount
+      description: tạo mới discount 
+      security:
+        - BearerAuth: []
+      operationId: search product by ID
+      responses:
+        "200":
+          description: search product success 
+
+    get:
+      tags:
+        - discounts
+      summary: lấy danh sách discount 
+      description: lấy danh sách discount 
+      security:
+        - BearerAuth: []
+      operationId: lấy danh sách discount 
+      responses:
+        "200":
+          description: lấy danh sách discount 
+  
+  /v1/api/discount/list-product-code:
+    get:
+      tags:
+        - discounts
+      summary: lấy tất cả sản phẩm với discount
+      description: lấy tất cả sản phẩm với discount 
+      security:
+        - BearerAuth: []
+      operationId: lấy tất cả sản phẩm với discount
+      responses:
+        "200":
+          description: lấy tất cả sản phẩm với discount
+
+  /v1/api/discount/amount:
+    post:
+      tags:
+        - discounts
+      summary: discount amount
+      description: discount amount
+      security:
+        - BearerAuth: []
+      operationId: discount amount
+      responses:
+        "200":
+          description: discount amount
+
+  /v1/api/discount/inventory:
+    post:
+      tags:
+        - inventory
+      summary: add stock to inventory
+      description: add stock to inventory
+      security:
+        - BearerAuth: []
+      operationId: add stock to inventory
+      responses:
+        "200":
+          description: add stock to inventory
+
+  /v1/api/notification:
+    get:
+      tags:
+        - notification
+      summary: list notification by user
+      description: list notification by user
+      security:
+        - BearerAuth: []
+      operationId: list notification by user
+      responses:
+        "200":
+          description: list notification by user
+
+  
+  /v1/api/upload/product:
+    get:
+      tags:
+        - upload
+      summary: upload fife for product
+      description: upload fife for product
+      security:
+        - BearerAuth: []
+      operationId: upload fife for product
+      responses:
+        "200":
+          description: upload fife for product
+  
+  /v1/api/upload/product/thumb:
+    get:
+      tags:
+        - upload
+      summary: upload fife thumb for product
+      description: upload fife thumb for product
+      security:
+        - BearerAuth: []
+      operationId: upload fife thumb for product
+      responses:
+        "200":
+          description: upload fife thumb for product
+  
+  /v1/api/upload/product/multiple:
+    get:
+      tags:
+        - upload
+      summary: upload multiple fife for product
+      description: upload multiple fife for product
+      security:
+        - BearerAuth: []
+      operationId: upload multiple fife for product
+      responses:
+        "200":
+          description: upload multiple fife for product
+  
+
+
