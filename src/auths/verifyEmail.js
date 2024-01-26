@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 const verifyEmail = async (emailVerificationCode, verificationCode) => {};
-const sendVerificationEmail = async (email, verificationCode) => {
+const sendVerificationEmail = async (usr_email, verificationCode) => {
   // Tạo transporter nodemailer (cấu hình email gửi đi)
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -15,7 +15,7 @@ const sendVerificationEmail = async (email, verificationCode) => {
   // Tạo nội dung email
   const mailOptions = {
     from: "emcaoxuan23@gmail.com",
-    to: email,
+    to: usr_email,
     subject: "Xác minh email",
     text: `Mã xác minh của bạn là: ${verificationCode}`,
   };

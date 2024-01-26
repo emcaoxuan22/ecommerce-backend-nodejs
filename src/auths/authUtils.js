@@ -2,6 +2,7 @@ const JWT = require("jsonwebtoken");
 const { asyncHandle } = require("../helpers/asyncHander");
 const createHttpError = require("http-errors");
 const { findByUserId } = require("../services/keyToken.service");
+const { extractBearerToken } = require("../utils");
 
 const HEADER = {
   API_KEY: "x-api-key",
@@ -43,6 +44,7 @@ const authentication = asyncHandle(async (req, res, next) => {
     5-check keyStore with this userid
     6-oke all -> return next()
   */
+  console.log(req.headers);
   const userId = req.headers[HEADER.CLIENT_ID];
   if (!userId) {
     throw new createHttpError.BadRequest("Invalid request, user not exet");
@@ -55,7 +57,7 @@ const authentication = asyncHandle(async (req, res, next) => {
   }
   // check token
   if (req.headers[HEADER.REFRESHTOKEN]) {
-    const refreshtoken = req.headers[HEADER.REFRESHTOKEN];
+    const refreshtoken = extractBearerToken(req.headers[HEADER.REFRESHTOKEN]);
     const decodeUser = JWT.verify(refreshtoken, keyStore.publicKey);
     if (userId !== decodeUser.userId)
       throw createHttpError.Unauthorized("Invalid user");
@@ -64,7 +66,7 @@ const authentication = asyncHandle(async (req, res, next) => {
     req.user = decodeUser;
     return next();
   }
-  const accessToken = req.headers[HEADER.AUTHORIZATION];
+  const accessToken = extractBearerToken(req.headers[HEADER.AUTHORIZATION]);
   if (!accessToken) {
     throw createHttpError.BadRequest("invalid request");
   }
@@ -72,6 +74,7 @@ const authentication = asyncHandle(async (req, res, next) => {
   if (userId !== decodeUser.userId) {
     throw createHttpError.BadRequest("invalid user");
   }
+  console.log(decodeUser);
   req.keyStore = keyStore;
   req.user = decodeUser;
   return next();

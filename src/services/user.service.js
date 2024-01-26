@@ -7,16 +7,18 @@ const nodemailer = require("nodemailer");
 
 const { ApiError } = require("../core/ApiError");
 const userModel = require("../models/user.model");
+const roleModel = require("../models/role.model");
 const KeyTokenService = require("./keyToken.service");
 const { verifyEmail, sendVerificationEmail } = require("../auths/verifyEmail");
 const { convertToObjectIdMongodb } = require("../utils");
+const { getRoleNameByUserId } = require("../models/repositories/role.repo");
 
 class UserService {
   static findByEmail = async ({
-    email,
-    select = { email: 1, password: 1, name: 1, status: 1 },
+    usr_email,
+    select = { usr_email: 1, usr_password: 1, usr_name: 1, usr_status: 1 },
   }) => {
-    return await userModel.findOne({ email }).select(select).lean();
+    return await userModel.findOne({ usr_email }).select(select).lean();
   };
 
   static handleRefreshToken = async ({ keyStore, user, refreshToken }) => {
@@ -32,7 +34,7 @@ class UserService {
       throw createHttpError.Unauthorized("Shop not register");
 
     //check userId or email
-    const foundShop = await this.findByEmail({ email });
+    const foundShop = await this.findByEmail({ usr_email: email });
     if (!foundShop) throw createHttpError.NotFound("email is not register");
     //create 1 cap token moi
     const tokens = await createTokenPair(
@@ -54,20 +56,25 @@ class UserService {
       tokens,
     };
   };
-  static sinup = async ({ username, password, email }) => {
+  static sinup = async ({ usr_name, usr_password, usr_email }) => {
     const foundEmaill = await userModel.findOne({
-      email,
+      usr_email,
       isEmailVerified: true,
     });
     if (foundEmaill) throw new ApiError(StatusCodes.CONFLICT, "user is exists");
     const verificationCode = Math.random().toString(36).substring(2, 8);
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(usr_password, 10);
     const userObj = await userModel.create({
-      userName: username,
-      email,
-      password: passwordHash,
+      usr_name,
+      usr_email,
+      usr_password: passwordHash,
       emailVerificationCode: verificationCode,
     });
+    const user_role = await roleModel.findOne({ rol_name: "user" });
+    userObj.usr_role.push(user_role._id);
+    await userObj.save();
+    const roleNames = await getRoleNameByUserId({ userId: userObj._id });
+    console.log(roleNames);
     // create AT and RT for user
     const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
       modulusLength: 4096,
@@ -83,7 +90,8 @@ class UserService {
     const tokens = await createTokenPair(
       {
         userId: userObj._id,
-        email,
+        email: usr_email,
+        roles: roleNames,
       },
       publicKey,
       privateKey
@@ -94,21 +102,21 @@ class UserService {
       privateKey: privateKey,
       refreshToken: tokens.refreshToken,
     });
-    await sendVerificationEmail(email, verificationCode);
+    await sendVerificationEmail(usr_email, verificationCode);
     return {
       metaData: {
-        shop: userObj,
+        user: userObj,
         token: tokens,
       },
     };
   };
-  static login = async ({ email, password }) => {
-    const foundUser = await userModel.findOne({ email });
+  static login = async ({ usr_email, usr_password }) => {
+    const foundUser = await userModel.findOne({ usr_email });
     if (!foundUser)
       throw new ApiError(StatusCodes.NOT_FOUND, "user do not exists");
     console.log(foundUser);
     //check password
-    const match = await bcrypt.compare(password, foundUser.password);
+    const match = await bcrypt.compare(usr_password, foundUser.usr_password);
     if (!match) throw new ApiError(StatusCodes.FORBIDDEN, "password is wrong");
     // create AT and RT
     const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
@@ -122,10 +130,12 @@ class UserService {
         format: "pem",
       },
     });
+    const roleNames = await getRoleNameByUserId({ userId: foundUser._id });
     const tokens = await createTokenPair(
       {
         userId: foundUser._id,
-        email,
+        email: foundUser.usr_email,
+        roles: roleNames,
       },
       publicKey,
       privateKey

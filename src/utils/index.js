@@ -38,10 +38,27 @@ const updateNestedObjectParser = (obj) => {
   });
   return final;
 };
+
+const extractBearerToken = (authorizationHeader) => {
+  // Kiểm tra xem chuỗi "Authorization" có tồn tại hay không
+  if (!authorizationHeader) {
+    return null;
+  }
+
+  // Tách chuỗi "Bearer" và lấy phần token
+  const parts = authorizationHeader.split(" ");
+  if (parts.length === 2 && parts[0].toLowerCase() === "bearer") {
+    return parts[1];
+  }
+
+  // Trả về null nếu định dạng không đúng
+  return null;
+};
 module.exports = {
   getSelectData,
   getUnSelectData,
   removeUndefineObject,
   updateNestedObjectParser,
   convertToObjectIdMongodb,
+  extractBearerToken,
 };

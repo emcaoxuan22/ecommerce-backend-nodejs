@@ -17,21 +17,29 @@ const Schema = mongoose.Schema;
 // ]
 var roleSchema = new Schema(
   {
-    rol_name: {type:String, default:'user', enum:['user','shop', 'admin']},
-    rol_slug: {type: String, required:true},
-    rol_status: {type: string, default: ''},
-    rol_grants:[
-        {
-            resource: {type:Schema.Types.ObjectId, ref: 'Resource', require:true},
-            actions:[{type: String, required: true}],
-            attributes:{type:String, default:'*'}
+    rol_name: {
+      type: String,
+      default: "user",
+      enum: ["user", "shop", "admin"],
+    },
+    rol_slug: { type: String, required: true },
+    rol_status: { type: String, default: "" },
+    rol_grants: [
+      {
+        resource: {
+          type: Schema.Types.ObjectId,
+          ref: "Resource",
+          require: true,
         },
-    ]
+        actions: [{ type: String, required: true }],
+        attributes: { type: String, default: "*" },
+      },
+    ],
   },
 
   {
     timestamps: true,
-    collection: COLLECTION_NAME
+    collection: COLLECTION_NAME,
   }
 );
 

@@ -3,7 +3,7 @@ components:
     SignupBody:
       type: object
       properties:
-        username:
+        name:
           type: string
           example: cao van long
         email:
@@ -26,3 +26,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
+    ClientId:
+      type: apiKey
+      in: header
+      name: Client-Id
