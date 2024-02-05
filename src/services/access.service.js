@@ -10,10 +10,10 @@ const createHttpError = require("http-errors");
 const { ApiError } = require("../core/ApiError");
 const { StatusCodes } = require("http-status-codes");
 const rolesShop = {
-  SHOP: "SHOP",
-  WRITER: "WRITER",
-  EDITER: "EDITER",
-  ADMIN: "ADMIN",
+  SHOP: "shop",
+  WRITER: "writer",
+  EDITER: "editer",
+  ADMIN: "admin",
 };
 class AccessService {
   static handleRefreshToken = async ({ keyStore, user, refreshToken }) => {
@@ -128,6 +128,7 @@ class AccessService {
         {
           userId: newShop._id,
           email,
+          roles
         },
         publicKey,
         privateKey
@@ -144,6 +145,7 @@ class AccessService {
         metaData: {
           shop: newShop,
           token: tokens,
+
         },
       };
     }
