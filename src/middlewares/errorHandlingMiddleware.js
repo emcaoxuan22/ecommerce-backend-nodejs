@@ -1,7 +1,7 @@
 const mylogger = require("../loggers/mylogger.log");
 const errorHandlingMiddleWare = (error, req, res, next) => {
   const statusCode = error.statusCode || 500;
-  mylogger.error(error.message, ['api/v1/login', 'vvv333444',error.statusCode])
+  mylogger.error(error.message, [req.url, 'vvv333444',error.statusCode])
   return res.status(statusCode).json({
     status: "error",
     code: statusCode,

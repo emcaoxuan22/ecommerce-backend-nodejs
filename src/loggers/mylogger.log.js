@@ -22,7 +22,11 @@ class MyLogger {
           maxFiles: '14d',
           format: format.combine(
             format.timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
-            formatPrint
+            formatPrint,
+            format((info, opts) => {
+              return info.level === 'info' ? info : false;
+            })()
+
           ),
           level: 'info'
         }),
@@ -49,7 +53,8 @@ class MyLogger {
     }else{
         [context, req, metadata] = params
     }
-    const requestId = req?.requestId || 'unknown'
+    // const requestId = req?.requestId || 'unknown'
+    const requestId = req.user ? req.user.id : 'anonymous';
     return {
         requestId,
         context,
