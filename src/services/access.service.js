@@ -123,12 +123,11 @@ class AccessService {
           format: "pem",
         },
       });
-
       const tokens = await createTokenPair(
         {
           userId: newShop._id,
           email,
-          roles
+          roles: newShop.roles,
         },
         publicKey,
         privateKey
